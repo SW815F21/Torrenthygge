@@ -8,6 +8,7 @@ func main() {
 	c, _ := torrent.NewClient(nil)
 	defer c.Close()
 	t, _ := c.AddTorrentFromFile("ly.torrent");
+	//Kan også laves som c.AddMagnetLink("bedstemagnetlink");
 	<-t.GotInfo()
 	t.DownloadAll()
 	c.WaitAll()
