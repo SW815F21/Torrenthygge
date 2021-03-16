@@ -1,13 +1,16 @@
 package main
 
 import "log"
-
+import "os"
 import "github.com/anacrolix/torrent"
+import "strconv"
 
 func main() {
-	c, _ := torrent.NewClient(nil)
+	cf := torrent.NewDefaultClientConfig()
+	cf.ListenPort, _ = strconv.Atoi(os.Getenv("TORRENT_CLIENT_PORT"))
+	c, _ := torrent.NewClient(cf)
 	defer c.Close()
-	t, _ := c.AddTorrentFromFile("denmark-latest.osm.pbf.torrent");
+	t, _ := c.AddTorrentFromFile("denmark-latest.osm.pbf.torrent")
 	//Kan også laves som c.AddMagnetLink("bedstemagnetlink");
 	<-t.GotInfo()
 	t.DownloadAll()
