@@ -8,11 +8,16 @@ import "strconv"
 import "time"
 
 func main() {
+	if os.Args[1] == "" {
+		fmt.Println("Please specify a torrent file as parameter")
+		os.Exit(1)
+	}
+	torrFile := os.Args[1]
 	cf := torrent.NewDefaultClientConfig()
 	cf.ListenPort, _ = strconv.Atoi(os.Getenv("TORRENT_CLIENT_PORT"))
 	c, _ := torrent.NewClient(cf)
 	defer c.Close()
-	t, _ := c.AddTorrentFromFile("map.torrent")
+	t, _ := c.AddTorrentFromFile(torrFile)
 	torrentBar(t, false)
 	//Kan også laves som c.AddMagnetLink("bedstemagnetlink");
 	<-t.GotInfo()
