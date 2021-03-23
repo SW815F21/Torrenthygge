@@ -7,4 +7,4 @@ RUN go build .
 ENV TORRENT_CLIENT_PORT=42069
 EXPOSE $TORRENT_CLIENT_PORT/tcp
 EXPOSE $TORRENT_CLIENT_PORT/udp
-ENTRYPOINT ./torrenthygge
+ENTRYPOINT ./torrenthygge denmark-latest.osm.pbf.torrent
